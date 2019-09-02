@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+</style>
+</head>
+<body style="font-family: verdana;">
+
+<p>Copyright (c) 2019 Leonid Titov</p>
+
+<h2>Range converter</h2>
+
+<h4 style="color: blue;">Input: <span id=Input
+				contenteditable="true"
+				onfocus="setEndOfContenteditable(event)"
+				onclick="setEndOfContenteditable(event)"
+                >0</span></h4>
+
+<h4>InputLow: <span id=InputLow
+				contenteditable="true"
+				onfocus="setEndOfContenteditable(event)"
+				onclick="setEndOfContenteditable(event)"
+                >0</span></h4>
+
+<h4>InputHigh: <span id=InputHigh
+				contenteditable="true"
+				onfocus="setEndOfContenteditable(event)"
+				onclick="setEndOfContenteditable(event)"
+                >100</span></h4>
+<div style="margin-left: 100px;">
+<h4>OutputLow: <span id=OutputLow
+				contenteditable="true"
+				onfocus="setEndOfContenteditable(event)"
+				onclick="setEndOfContenteditable(event)"
+                >4</span></h4>
+
+<h4>OutputHigh: <span id=OutputHigh
+				contenteditable="true"
+				onfocus="setEndOfContenteditable(event)"
+				onclick="setEndOfContenteditable(event)"
+                >20</span></h4>
+
+<h4 style="color: green;">Result: <span id=Result
+				contenteditable="true"
+				onfocus="setEndOfContenteditable(event)"
+				onclick="setEndOfContenteditable(event)"
+                >100</span></h4>
+</div>
+
+<script>
+var Input = document.getElementById("Input");
+var InputLow = document.getElementById("InputLow");
+var InputHigh = document.getElementById("InputHigh");
+var OutputLow = document.getElementById("OutputLow");
+var OutputHigh = document.getElementById("OutputHigh");
+var Result = document.getElementById("Result");
+
+setInterval(calc, 500);
+
+function calc() {
+	var i = Number(Input.innerHTML);
+	var i1 = Number(InputLow.innerHTML);
+	var i2 = Number(InputHigh.innerHTML);
+	var o1 = Number(OutputLow.innerHTML);
+	var o2 = Number(OutputHigh.innerHTML);
+    var R;
+	R = ((i - i1) / (i2 - i1)) * (o2 - o1) + o1;
+	Result.innerHTML = R;
+}
+
+function setEndOfContenteditable(event)
+{
+	var contentEditableElement = event.target;
+	var range,selection;
+	range = document.createRange();	//Create a range (a range is a like the selection but invisible)
+	range.selectNodeContents(contentEditableElement);	//Select the entire contents of the element with the range
+//	range.collapse(false);	//collapse the range to the end point. false means collapse to end rather than the start
+	selection = window.getSelection();	//get the selection object (allows you to change selection)
+	selection.removeAllRanges();	//remove any selections already made
+	selection.addRange(range);	//make the range you have just created the visible selection
+}
+
+</script>
+
+</body>
+</html>
